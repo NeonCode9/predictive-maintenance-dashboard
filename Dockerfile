@@ -24,6 +24,6 @@ EXPOSE 7860
 
 #Command to run the Streamlit application
 
-Change 'streamlit_app.py' if your main python file is named differently (e.g., 'app.py')
+#Change 'streamlit_app.py' if your main python file is named differently (e.g., 'app.py')
 
 CMD ["streamlit", "run", "streamlit_app.py", "--server.port=7860", "--server.address=0.0.0.0"]
