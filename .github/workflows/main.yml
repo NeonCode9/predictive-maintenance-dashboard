@@ -10,23 +10,29 @@ jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Git Xet
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/huggingface/xet-core/refs/heads/main/git_xet/install.sh | sh
-          git xet install
-          git xet --version
-
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6          # v6 supports Node 24 [citation:13][citation:17]
         with:
           fetch-depth: 0
           lfs: true
 
-      - name: Push to Hugging Face Spaces
+      - name: Push clean snapshot to Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions CI/CD"
-          git remote add hf https://sudhakaryg:$HF_TOKEN@huggingface.co/spaces/sudhakaryg/predictive-maintenance-dashboard || true
-          git push --force hf main
+
+          # Create a clean, history-free branch
+          git checkout --orphan hf-deploy
+
+          # Remove any cached artifacts that might still be tracked
+          git rm -r --cached --ignore-unmatch xgboost_model.pkl artifacts/ runs/ || true
+
+          # Stage only the current working tree (binary should be gone now)
+          git add -A
+          git commit -m "Deploy clean snapshot to HF Spaces"
+
+          # Push to Hugging Face
+          git remote add hf https://sudhakaryg:$HF_TOKEN@huggingface.co/spaces/sudhakaryg/predictive-maintenance-dashboard
+          git push --force hf hf-deploy:main
