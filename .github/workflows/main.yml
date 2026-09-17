@@ -10,8 +10,14 @@ jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
     steps:
+      - name: Install Git Xet
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/huggingface/xet-core/refs/heads/main/git_xet/install.sh | sh
+          git xet install
+          git xet --version
+
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
@@ -22,4 +28,5 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions CI/CD"
-          git push --force https://sudhakaryg:$HF_TOKEN@huggingface.co/spaces/sudhakaryg/predictive-maintenance-dashboard main
+          git remote add hf https://sudhakaryg:$HF_TOKEN@huggingface.co/spaces/sudhakaryg/predictive-maintenance-dashboard || true
+          git push --force hf main
