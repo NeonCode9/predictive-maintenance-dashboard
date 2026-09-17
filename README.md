@@ -1,10 +1,12 @@
-title: Proactive Asset Health Dashboard <br>
-emoji: ⚙️ <br>
-colorFrom: blue colorTo: green <br>
-sdk: docker <br>
-app_port: 7860 <br>
-pinned: false <br>
-— <br>
+---
+title: Predictive Maintenance Dashboard
+emoji: 🐳
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
 
 
 Predictive Maintenance MLOps Pipeline: Execution & CI/CD Guide (Colab Edition)
