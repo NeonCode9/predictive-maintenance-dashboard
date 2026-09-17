@@ -4,7 +4,9 @@ colorFrom: blue colorTo: green <br>
 sdk: docker <br>
 app_port: 7860 <br>
 pinned: false <br>
-—
+— <br>
+
+
 Predictive Maintenance MLOps Pipeline: Execution & CI/CD Guide (Colab Edition)
 This guide provides the exact step-by-step instructions to train your Machine Learning model in Google Colab, and deploy the interactive dashboard to Hugging Face via GitHub Actions (CI/CD).
 Phase 1: Model Training & Artifact Generation
