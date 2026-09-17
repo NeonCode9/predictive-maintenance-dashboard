@@ -1,0 +1,38 @@
+STREAMING_CHUNK: Configuring workflow triggers...
+
+name: Sync Predictive Maintenance Dashboard to Hugging Face Hub
+
+on:
+push:
+branches: [main]
+
+#Allows you to run this workflow manually from the Actions tab
+
+workflow_dispatch:
+
+STREAMING_CHUNK: Setting up the deployment job and enabling Large File Storage (LFS)...
+
+jobs:
+sync-to-hub:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout repository
+uses: actions/checkout@v3
+with:
+fetch-depth: 0
+lfs: true # Crucial: Enables Large File Storage for the xgboost_model.pkl file
+
+STREAMING_CHUNK: Configuring Git and pushing the repository to Hugging Face Spaces...
+
+  - name: Push to Hugging Face Spaces
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    run: |
+      # Configure Git credentials for the CI/CD bot
+      git config --global user.email "actions@github.com"
+      git config --global user.name "GitHub Actions CI/CD"
+      
+      # IMPORTANT: Update the URL below!
+      # Replace 'YOUR_HF_USERNAME' with your Hugging Face username
+      # Replace 'Predictive-Maintenance-App' with your actual Space name if different
+      git push --force https://sudhakaryg:$HF_TOKEN@huggingface.co/spaces/sudhakaryg/predictive-maintenance-dashboard main
