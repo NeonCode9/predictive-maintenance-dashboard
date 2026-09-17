@@ -1,9 +1,9 @@
-title: Proactive Asset Health Dashboard 
-emoji: ⚙️ 
-colorFrom: blue colorTo: green 
-sdk: docker 
-app_port: 7860 
-pinned: false
+title: Proactive Asset Health Dashboard <br>
+emoji: ⚙️ <br>
+colorFrom: blue colorTo: green <br>
+sdk: docker <br>
+app_port: 7860 <br>
+pinned: false <br>
 —
 Predictive Maintenance MLOps Pipeline: Execution & CI/CD Guide (Colab Edition)
 This guide provides the exact step-by-step instructions to train your Machine Learning model in Google Colab, and deploy the interactive dashboard to Hugging Face via GitHub Actions (CI/CD).
