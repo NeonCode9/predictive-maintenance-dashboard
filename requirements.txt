@@ -1,0 +1,8 @@
+pandas2.1.4
+scikit-learn1.3.2
+xgboost2.0.3
+mlflow2.9.2
+streamlit1.29.0
+joblib1.3.2
+datasets2.16.1
+huggingface_hub0.20.1
