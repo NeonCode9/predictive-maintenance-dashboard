@@ -49,14 +49,14 @@ def get_user_input():
     lub_oil_temp = st.sidebar.slider("Lubricating Oil Temp (°C)", min_value=50.0, max_value=130.0, value=76.0, step=0.5)
     coolant_temp = st.sidebar.slider("Coolant Temp (°C)", min_value=50.0, max_value=130.0, value=72.0, step=0.5)
     
-    # Store in a dataframe mimicking the training data structure
+    # BUG FIX: Store in a dataframe mimicking the exact training data strings/casing
     features = pd.DataFrame({
-        'Engine_RPM': [engine_rpm],
-        'Lub_Oil_Pressure': [lub_oil_pressure],
-        'Fuel_Pressure': [fuel_pressure],
-        'Coolant_Pressure': [coolant_pressure],
-        'Lub_Oil_Temperature': [lub_oil_temp],
-        'Coolant_Temperature': [coolant_temp]
+        'Engine rpm': [engine_rpm],
+        'Lub oil pressure': [lub_oil_pressure],
+        'Fuel pressure': [fuel_pressure],
+        'Coolant pressure': [coolant_pressure],
+        'lub oil temp': [lub_oil_temp],
+        'Coolant temp': [coolant_temp]
     })
     return features
 
@@ -98,12 +98,13 @@ if st.button("🔍 Run Diagnostic Inference", type="primary", use_container_widt
             st.write("#### 🔎 Potential Diagnostic Focus Areas:")
             col1, col2 = st.columns(2)
             with col1:
-                if input_df['Lub_Oil_Temperature'].values[0] > 84:
+                # FIXED: Updated the column references to match the new dictionary keys
+                if input_df['lub oil temp'].values[0] > 84:
                     st.warning("🔥 **Thermal Runaway Warning:** Lubricating Oil Temperature is exceptionally high, risking viscosity breakdown.")
-                if input_df['Coolant_Temperature'].values[0] > 82:
+                if input_df['Coolant temp'].values[0] > 82:
                     st.warning("🌡️ **Coolant System Alert:** Engine block temperature is exceeding safe operational medians.")
             with col2:
-                if input_df['Lub_Oil_Pressure'].values[0] < 2.5 and input_df['Engine_RPM'].values[0] > 1200:
+                if input_df['Lub oil pressure'].values[0] < 2.5 and input_df['Engine rpm'].values[0] > 1200:
                     st.error("💥 **Friction Danger:** Low oil pressure detected at high RPMs. Immediate risk of bearing seizing.")
-                if input_df['Coolant_Pressure'].values[0] < 2.0:
+                if input_df['Coolant pressure'].values[0] < 2.0:
                     st.warning("💧 **Pressure Drop:** Coolant pressure is low. Inspect for closed-loop leaks or head gasket breaches.")
